@@ -6,7 +6,7 @@ import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { toast } from 'react-toastify'
 
 export default function DashboardView() {
-  const { data, isError, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['projects'],
     queryFn: getProjects,
   })
@@ -51,7 +51,7 @@ export default function DashboardView() {
                 <div className="flex min-w-0 gap-x-4">
                   <div className="min-w-0 flex-auto space-y-2">
                     <Link
-                      to={``}
+                      to={`/projects/${project._id}`}
                       className="text-gray-600 cursor-pointer hover:underline text-3xl font-bold"
                     >
                       {project.projectName}
@@ -73,7 +73,7 @@ export default function DashboardView() {
                     >
                       <MenuItem>
                         <Link
-                          to={``}
+                          to={`/projects/${project._id}`}
                           className="block px-3 py-1 text-sm leading-6 text-gray-900 hover:text-gray-950 transition-colors"
                         >
                           Ver Proyecto
