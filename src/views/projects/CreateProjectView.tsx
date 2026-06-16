@@ -44,7 +44,7 @@ export default function CreateProjectView() {
       <nav className="my-5">
         <Link
           to="/"
-          className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
+          className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors uppercase"
         >
           Volver a proyectos
         </Link>

@@ -1,9 +1,11 @@
 import { getProjectById } from '@/api/ProjectAPI'
 import { useQuery } from '@tanstack/react-query'
-import { Navigate, useNavigate, useParams } from 'react-router'
-import AddTaskModal from '@/components/tasks/AddTaskModal.tsx'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
+import AddTaskModal from '@/components/tasks/AddTaskModal'
+import TaskList from '@/components/tasks/TaskList'
 
 export default function ProjectDetailsView() {
+  const location = useLocation()
   const navitate = useNavigate()
   const params = useParams()
   const projectId = params.projectId!
@@ -26,13 +28,14 @@ export default function ProjectDetailsView() {
         <nav className="my-5 flex gap-5">
           <button
             type="button"
-            className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
-            onClick={() => navitate('?newTask=true')}
+            className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors uppercase"
+            onClick={() => navitate(location.pathname + '?newTask=true')}
           >
             Agregar tarea
           </button>
         </nav>
 
+        <TaskList tasks={data.tasks} />
         <AddTaskModal />
       </>
     )

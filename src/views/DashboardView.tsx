@@ -35,7 +35,7 @@ export default function DashboardView() {
         <nav className="my-5">
           <Link
             to="/projects/create"
-            className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
+            className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors uppercase"
           >
             Nuevo proyecto
           </Link>
@@ -76,7 +76,7 @@ export default function DashboardView() {
                           to={`/projects/${project._id}`}
                           className="block px-3 py-1 text-sm leading-6 text-gray-900 hover:text-gray-950 transition-colors"
                         >
-                          Ver Proyecto
+                          Ver proyecto
                         </Link>
                       </MenuItem>
                       <MenuItem>
@@ -84,7 +84,7 @@ export default function DashboardView() {
                           to={`/projects/${project._id}/edit`}
                           className="block px-3 py-1 text-sm leading-6 text-gray-900 hover:text-gray-950 transition ease-in duration-75"
                         >
-                          Editar Proyecto
+                          Editar proyecto
                         </Link>
                       </MenuItem>
                       <MenuItem>
@@ -95,7 +95,7 @@ export default function DashboardView() {
                             mutate(project._id)
                           }}
                         >
-                          Eliminar Proyecto
+                          Eliminar proyecto
                         </button>
                       </MenuItem>
                     </MenuItems>
@@ -106,12 +106,12 @@ export default function DashboardView() {
           </ul>
         ) : (
           <p className="text-center py-20">
-            Aún no hay proyectos {''}
+            Aún no hay proyectos. {''}
             <Link
               to="/projects/create"
-              className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
+              className="text-purple-400 hover:text-purple-500 hover:underline text-lg font-bold cursor-pointer transition-colors uppercase"
             >
-              Crear proyecto
+              Crea uno nuevo
             </Link>
           </p>
         )}
