@@ -12,8 +12,8 @@ export default function ProjectDetailsView() {
   const projectId = params.projectId!
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['editProject', projectId],
     queryFn: () => getProjectById(projectId),
+    queryKey: ['project', projectId],
     retry: false,
   })
 
@@ -36,7 +36,7 @@ export default function ProjectDetailsView() {
           </button>
         </nav>
 
-        <TaskList tasks={data.tasks} />
+        <TaskList tasks={data.tasks.filter(Boolean)} />
         <AddTaskModal />
         <EditTaskData />
       </>

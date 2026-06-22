@@ -37,7 +37,7 @@ export default function AddTaskModal() {
       toast.error(error.message)
     },
     onSuccess: data => {
-      queryClient.invalidateQueries({ queryKey: ['editProject', projectId] })
+      queryClient.invalidateQueries({ queryKey: ['project', projectId] })
       toast.success(data)
       reset()
       navigate('', { replace: true })
@@ -45,11 +45,7 @@ export default function AddTaskModal() {
   })
 
   const handleCreateTask = (formData: TaskFormData) => {
-    const data = {
-      formData,
-      projectId,
-    }
-
+    const data = { formData, projectId }
     mutate(data)
   }
 

@@ -7,8 +7,8 @@ import { toast } from 'react-toastify'
 
 export default function DashboardView() {
   const { data, isLoading } = useQuery({
-    queryKey: ['projects'],
     queryFn: getProjects,
+    queryKey: ['projects'],
   })
 
   const queryClient = useQueryClient()
@@ -91,9 +91,7 @@ export default function DashboardView() {
                         <button
                           type="button"
                           className="block px-3 py-1 text-sm leading-6 text-red-500 hover:text-red-600 transition-colors w-full cursor-pointer text-left"
-                          onClick={() => {
-                            mutate(project._id)
-                          }}
+                          onClick={() => mutate(project._id)}
                         >
                           Eliminar proyecto
                         </button>
