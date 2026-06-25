@@ -1,10 +1,12 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment, type ChangeEvent } from 'react'
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
-import { useQuery } from '@tanstack/react-query'
-import { getTaskById } from '@/api/TaskAPI'
+import { useMutation, useQuery, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { getTaskById, updateStatus } from '@/api/TaskAPI'
 import { toast } from 'react-toastify'
 import { formatDate } from '@/utils/utils'
+import { statusTranslations } from '@/locales/es'
+import type { TaskStatus } from '@/types/index'
 
 export default function TaskModalDetails() {
   const navigate = useNavigate()
@@ -14,14 +16,36 @@ export default function TaskModalDetails() {
   const queryParams = new URLSearchParams(location.search)
   const taskId = queryParams.get('viewTask')!
 
-  const show = taskId ? true : false
+  const show = !!taskId
 
   const { data, isError, error } = useQuery({
     queryFn: () => getTaskById({ projectId, taskId }),
     queryKey: ['task', taskId],
     enabled: !!taskId,
+    placeholderData: keepPreviousData,
     retry: false,
   })
+
+  const queryClient = useQueryClient()
+
+  const { mutate } = useMutation({
+    mutationFn: updateStatus,
+    onError: error => {
+      toast.error(error.message)
+    },
+    onSuccess: data => {
+      queryClient.invalidateQueries({ queryKey: ['project', projectId] })
+      queryClient.invalidateQueries({ queryKey: ['task', taskId] })
+      toast.success(data)
+      navigate(location.pathname, { replace: true })
+    },
+  })
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const status = e.target.value as TaskStatus
+    const data = { projectId, taskId, status }
+    mutate(data)
+  }
 
   if (isError) {
     setTimeout(() => {
@@ -73,7 +97,18 @@ export default function TaskModalDetails() {
                     </DialogTitle>
                     <p className="text-lg text-slate-500 mb-2">Descripción: {data.description}</p>
                     <div className="my-5 space-y-3">
-                      <label className="font-bold">Estado actual: {data.status}</label>
+                      <label className="font-bold">Estado actual:</label>
+                      <select
+                        className="w-full p-3 bg-white border border-gray-300"
+                        defaultValue={data.status}
+                        onChange={handleChange}
+                      >
+                        {Object.entries(statusTranslations).map(([key, value]) => (
+                          <option key={key} value={key}>
+                            {value}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </DialogPanel>
                 </TransitionChild>

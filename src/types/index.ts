@@ -41,3 +41,5 @@ export type ProjectFormData = Pick<Project, 'projectName' | 'clientName' | 'desc
 export type Task = z.infer<typeof taskSchema>
 
 export type TaskFormData = Pick<Task, 'name' | 'description'>
+
+export type TaskStatus = z.infer<typeof taskStatusSchema>
