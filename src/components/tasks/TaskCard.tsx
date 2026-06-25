@@ -51,6 +51,7 @@ export default function TaskCard({ task }: TaskCardProps) {
               <button
                 type="button"
                 className="block px-3 py-1 text-sm leading-6 text-gray-900 hover:text-gray-950 transition-colors cursor-pointer"
+                onClick={() => navigate(location.pathname + `?viewTask=${task._id}`)}
               >
                 Ver tarea
               </button>
