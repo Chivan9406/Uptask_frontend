@@ -34,6 +34,14 @@ export const taskSchema = z.object({
   updatedAt: z.string(),
 })
 
+export const authSchema = z.object({
+  name: z.string(),
+  email: z.email(),
+  password: z.string(),
+  password_confirmation: z.string(),
+  token: z.string(),
+})
+
 export type Project = z.infer<typeof projectSchema>
 
 export type ProjectFormData = Pick<Project, 'projectName' | 'clientName' | 'description'>
@@ -43,3 +51,13 @@ export type Task = z.infer<typeof taskSchema>
 export type TaskFormData = Pick<Task, 'name' | 'description'>
 
 export type TaskStatus = z.infer<typeof taskStatusSchema>
+
+export type Auth = z.infer<typeof authSchema>
+
+export type ConfirmToken = Pick<Auth, 'token'>
+
+export type UserLoginForm = Pick<Auth, 'email' | 'password'>
+
+export type UserRegisterForm = Pick<Auth, 'name' | 'email' | 'password' | 'password_confirmation'>
+
+export type RequestConfirmationCodeForm = Pick<Auth, 'email'>

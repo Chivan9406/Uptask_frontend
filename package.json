@@ -11,6 +11,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
+    "@chakra-ui/pin-input": "^2.1.0",
     "@headlessui/react": "^2.2.10",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.3.0",
